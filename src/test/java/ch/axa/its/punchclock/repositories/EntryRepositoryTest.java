@@ -43,6 +43,6 @@ public class EntryRepositoryTest {
       entry2.setCheckOut(LocalDateTime.now());
       entryRepository.save(entry2);
 
-      assertEquals(2, entryRepository.count());
+      assertEquals(2, entryRepository.findAll());
   }
 }
