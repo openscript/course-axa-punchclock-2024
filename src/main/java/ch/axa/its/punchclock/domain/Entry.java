@@ -52,7 +52,7 @@ public class Entry {
   )
   private Set<Tag> tags = new HashSet<>();
 
-  @ManyToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne
   private Category category;
 
   public String getDescription() {
