@@ -1,16 +1,23 @@
 package ch.axa.its.punchclock.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +43,17 @@ public class Entry {
   @NotBlank(message = "Bitte Beschreibung eingeben!")
   @Column(nullable = false)
   private String description;
+
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  @JoinTable(
+    name = "entry_tags",
+    joinColumns = @JoinColumn(name = "entry_id"),
+    inverseJoinColumns = @JoinColumn(name = "tag_id")
+  )
+  private Set<Tag> tags = new HashSet<>();
+
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  private Category category;
 
   public String getDescription() {
     return description;
@@ -76,5 +94,21 @@ public class Entry {
       return true;
     }
     return checkIn.isBefore(checkOut);
+  }
+
+  public Set<Tag> getTags() {
+    return tags;
+  }
+
+  public void setTags(Set<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
   }
 }
