@@ -13,6 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "entry")
@@ -27,9 +30,12 @@ public class Entry {
   private LocalDateTime checkIn;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @NotNull
   @Column(nullable = false)
   private LocalDateTime checkOut;
 
+  @NotBlank(message = "Bitte Beschreibung eingeben!")
+  @Column(nullable = false)
   private String description;
 
   public String getDescription() {
@@ -62,5 +68,14 @@ public class Entry {
 
   public void setCheckOut(LocalDateTime checkOut) {
     this.checkOut = checkOut;
+  }
+
+  @JsonIgnore
+  @AssertTrue(message = "Ein- sollte vor dem Ausstempeln passieren.")
+  public boolean isCheckOutAfterCheckIn() {
+    if (checkIn == null || checkOut == null) {
+      return true;
+    }
+    return checkIn.isBefore(checkOut);
   }
 }

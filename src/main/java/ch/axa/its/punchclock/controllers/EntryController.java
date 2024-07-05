@@ -49,7 +49,7 @@ public class EntryController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable("id") String id, @Valid Entry entry, BindingResult result, Model model) {
+    public String update(@PathVariable("id") String id, @Valid Entry entry, BindingResult result) {
         if (result.hasErrors()) {
             entry.setId(id);
             return "edit";

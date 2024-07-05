@@ -20,7 +20,7 @@
         <label for="checkOut">Bis</label>
         <input type="datetime-local" th:field="*{checkOut}" id="checkOut" />
         <span th:if="${#fields.hasErrors('checkOut')}" th:errors="*{checkOut}"></span>
-        <!--<div th:if="${#fields.hasErrors('checkOutAfterCheckIn')}" th:text="${#fields.errors('checkOutAfterCheckIn')[0]}"></div>-->
+        <div th:if="${#fields.hasErrors('checkOutAfterCheckIn')}" th:text="${#fields.errors('checkOutAfterCheckIn')[0]}"></div>
         <button type="submit">Erstellen</button>
       </form>
     </main>
