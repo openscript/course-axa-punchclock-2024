@@ -50,9 +50,9 @@ public class APIEntryController {
       return entryRepository.searchByDescription(descriptionSearch);
     }
 
-    return entryRepository.findAll();
+    //return entryRepository.findAll();
 
-    // return entryRepository.filter(categoryId, tagId, descriptionSearch);
+    return entryRepository.filter(categoryId, tagId, descriptionSearch);
   }
 
   @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package ch.axa.its.punchclock;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class Dataloader implements ApplicationRunner {
     tags.add(tag);
     entry.setTags(tags);
     entry.setCategory(category);
-    entry.setCheckIn(LocalDateTime.now().minusHours(2));
-    entry.setCheckOut(LocalDateTime.now());
+    entry.setCheckIn(LocalDateTime.now().minusHours(2).truncatedTo(ChronoUnit.MINUTES));
+    entry.setCheckOut(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
     entryRepository.save(entry);
   }
 }

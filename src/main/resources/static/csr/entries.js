@@ -18,6 +18,7 @@ const saveEntry = (e) => {
   entry['checkOut'] = dateAndTimeToDate(formData.get('checkOutDate'), formData.get('checkOutTime'));
   entry['category'] = { id: formData.get('category') };
   entry['tags'] = formData.getAll('tags').map((tag) => ({ id: tag }));
+  entry['description'] = formData.get('description');
 
   if (formMode === FORM_MODES.NEW) {
     fetch(`${URL}/entries`, {
@@ -85,6 +86,7 @@ const editEntry = (id) => {
   entryForm.querySelector('input[name=checkInTime]').value = checkIn.toISOString().split('T')[1].replace('Z', '');
   entryForm.querySelector('input[name=checkOutDate]').value = checkOut.toISOString().split('T')[0];
   entryForm.querySelector('input[name=checkOutTime]').value = checkOut.toISOString().split('T')[1].replace('Z', '');
+  entryForm.querySelector('textarea[name=description]').value = entry.description;
 };
 
 const indexEntries = () => {
@@ -187,6 +189,7 @@ const renderEntries = () => {
     row.appendChild(createCell(entry.tags.map((tag) => tag.name).join(', ')));
     row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
     row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
+    row.appendChild(createCell(entry.description));
     row.appendChild(createActionsCell(entry.id));
     display.appendChild(row);
   });
