@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -26,6 +27,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "entry")
+@NamedQuery(query = "SELECT e FROM Entry e WHERE e.category.id = :categoryId", name = "Entry.findByCategory")
 public class Entry {
 
   @Id

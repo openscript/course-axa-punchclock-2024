@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,8 +34,25 @@ public class APIEntryController {
   }
 
   @GetMapping
-  public Iterable<Entry> index() {
+  public Iterable<Entry> index(
+    @RequestParam(required = false) String categoryId,
+    @RequestParam(required = false) String tagId,
+    @RequestParam(required = false) String descriptionSearch
+  ) {
+
+    if (categoryId != null) {
+      return entryRepository.findByCategory(categoryId);
+    }
+    if (tagId != null) {
+      return entryRepository.findByTagsId(tagId);
+    }
+    if (descriptionSearch != null) {
+      return entryRepository.searchByDescription(descriptionSearch);
+    }
+
     return entryRepository.findAll();
+
+    // return entryRepository.filter(categoryId, tagId, descriptionSearch);
   }
 
   @GetMapping("/{id}")
