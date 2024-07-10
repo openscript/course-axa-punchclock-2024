@@ -7,6 +7,8 @@ import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,6 +31,7 @@ public class Entry {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @JsonProperty(access = Access.READ_ONLY)
   private String id;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -40,11 +43,11 @@ public class Entry {
   @Column(nullable = false)
   private LocalDateTime checkOut;
 
-  @NotBlank(message = "Bitte Beschreibung eingeben!")
-  @Column(nullable = false)
+  //@NotBlank(message = "Bitte Beschreibung eingeben!")
+  @Column(nullable = true)
   private String description;
 
-  @ManyToMany(cascade = CascadeType.PERSIST)
+  @ManyToMany
   @JoinTable(
     name = "entry_tags",
     joinColumns = @JoinColumn(name = "entry_id"),
