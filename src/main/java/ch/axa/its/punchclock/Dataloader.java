@@ -46,5 +46,15 @@ public class Dataloader implements ApplicationRunner {
     entry.setCheckIn(LocalDateTime.now().minusHours(2).truncatedTo(ChronoUnit.MINUTES));
     entry.setCheckOut(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
     entryRepository.save(entry);
+
+    generateTags();
+  }
+
+  private void generateTags() {
+    for (int i = 1; i <= 50; i++) {
+      var tag = new Tag();
+      tag.setName("Tag " + i);
+      tagRepository.save(tag);
+    }
   }
 }

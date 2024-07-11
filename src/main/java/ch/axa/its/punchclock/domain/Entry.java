@@ -44,8 +44,7 @@ public class Entry {
   @Column(nullable = false)
   private LocalDateTime checkOut;
 
-  //@NotBlank(message = "Bitte Beschreibung eingeben!")
-  @Column(nullable = true)
+  @Column
   private String description;
 
   @ManyToMany

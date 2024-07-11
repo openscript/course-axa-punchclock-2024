@@ -66,7 +66,7 @@ const indexTags = () => {
     method: 'GET'
   }).then((result) => {
     result.json().then((result) => {
-      tags = result;
+      tags = result.content;
       renderTags();
     });
   });
