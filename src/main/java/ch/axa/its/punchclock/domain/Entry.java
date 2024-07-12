@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -53,6 +54,7 @@ public class Entry {
     joinColumns = @JoinColumn(name = "entry_id"),
     inverseJoinColumns = @JoinColumn(name = "tag_id")
   )
+  @JsonIgnoreProperties({"entries"})
   private Set<Tag> tags = new HashSet<>();
 
   @ManyToOne

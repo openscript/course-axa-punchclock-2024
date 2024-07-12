@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +23,6 @@ public class Tag {
 
   private String name;
 
-  @JsonIgnore
   @ManyToMany(mappedBy = "tags")
   private Set<Entry> entries = new HashSet<>();
 
